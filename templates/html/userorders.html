@@ -1,0 +1,36 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Order History for {{ user.username }}</h1>
+
+        {% if orders %}
+            <ul class="list-group">
+                {% for order in orders %}
+                    <li class="list-group-item mb-3">
+    
+                        <h5>Order Date: {{ order.order_date }}</h5>
+                        <p>Delivery Date: {{ order.delivery_date }}</p>
+                        <h6>Products:</h6>
+                        <ul class="list-group">
+                            {% for product in order.products.all %}
+                                <li class="list-group-item">
+                                    {{ product.name }} - {{ product.price }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        
+                        <a href="{% url 'cancel_order' order.id %}" class="btn btn-danger">Cancel Order</a>
+                        <a href="#" class="btn btn-success">Pay Now</a>
+                        
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No orders found.</p>
+        {% endif %}
+        
+
+        
+    </div>
+{% endblock %}

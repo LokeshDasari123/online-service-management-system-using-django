@@ -1,0 +1,36 @@
+<!-- allocate_order.html -->
+{% extends 'html/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Allocate Order</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Order Date: {{ order.order_date }}</h5>
+            <p class="card-text">Service Date: {{ order.delivery_date }}</p>
+            <p class="card-text">User: {{ order.user.username }}</p>
+
+            <!-- Display order details here as needed -->
+
+            <h6 class="card-subtitle mb-2 text-muted">Allocated Service Providers:</h6>
+            <ul>
+                {% for allocated_provider in order.allocatedorder_set.all %}
+                    <li>{{ allocated_provider.service_provider.user.username }}</li>
+                {% endfor %}
+            </ul>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Allocate</button>
+            </form>
+            <form method="post" action="{% url 'unallocate_order' order.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Unallocate</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock%}

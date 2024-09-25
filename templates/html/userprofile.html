@@ -1,0 +1,57 @@
+{% extends 'html/base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+	<div class="row mx-2">
+		<div class="card col-md-2 col-sm-3 col-xm-3 shadow-lg m-2 h-100">
+			<div class="card-body text-center">
+				<h3>{{request.user.username}}</h3>
+			</div>
+		</div>
+		<div class="card col-md col-sm col-xm shadow-lg m-2">
+			<div class="card-body">
+				<div class="row my-2">
+					<div class="col">
+						<h3>Details</h3>
+					</div>
+					<div class="col">
+						<a href="{% url 'update_profile' %}" class="btn btn-outline-info float-right">Update Profile</a>
+					</div>
+				</div>
+				
+				<table class="table table-responsive">
+					<tr>
+						<td><b>Username : </b></td>
+						<td>{{request.user.username}}</td>
+					</tr>
+					
+					<tr>
+						<td><b>Emailid : </b></td>
+						<td>{{request.user.email}}</td>
+						<td><b>Mobile Number : </b></td>
+						<td>{{request.user.mble}}</td>
+					</tr>
+        
+					<tr>
+						<td><b>Role Type : </b></td>
+						<td>
+							{% if user.is_superuser %}
+                    <p>Admin</p>
+                  {% else %}
+                    {% if request.user.role_type == 'customer' %}
+                     <p>customer</p>
+                         
+                    {% else %}
+                      Service Provider
+					  
+                    {% endif %}
+                      {% endif %}
+							
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

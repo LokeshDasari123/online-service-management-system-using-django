@@ -1,0 +1,43 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+<style>
+    table,tr,th,td{
+        border: 2px solid #bebebe;
+        padding: 7px 20px 7px 20px;
+    }
+</style>
+<div class="odconfirm" style=" margin-top: 30px;display:  flex; flex-direction: column; align-items: center;">
+    <h1>Order Confirmation</h1>
+    <div class="uorder" style="margin-bottom: 30px;">
+        <h2 style="font-size: 24px; padding-top: 10px;">Your Order</h2>
+        <div class="uorder_content" style="border: 2px solid #ddd; border-radius: 10px; padding: 20px 20px 0 20px;">
+            <p> <span style="font-weight: bold;">Delivery Date:</span> {{ order.delivery_date }}</p>
+            <p> <span style="font-weight: bold;">Order Date:</span> {{ order.order_date }}</p>
+            <p> <span style="font-weight: bold;">House Address:</span>  {{ order.address.flat_address }}</p>
+</div>
+</div>
+<div class="ordetails">
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        {% for item in order.products.all %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>${{ item.price }}</td>
+                <td>{{ item.orderitem.quantity }}</td>
+                <td>${{ item.price|floatformat:2 }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="3"><strong>Total</strong></td>
+            <td><strong>${{ order.total_amount }}</strong></td>
+        </tr>
+    </table>
+</div>
+</div>
+{% endblock %}

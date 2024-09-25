@@ -1,0 +1,13 @@
+<!-- allocation_email.html -->
+
+<html>
+<body>
+    <p>Hello {{ user.username }},</p>
+    <p>Your service request has been allocated to {{ service_provider.user.username }}.</p>
+    <p>Order details:</p>
+    <p>Order Date: {{ order.order_date }}</p>
+    <p>Service Date: {{ order.delivery_date }}</p>
+    <p>House Address: {{ order.address.flat_address }}</p>
+    <!-- Include any additional order details here -->
+</body>
+</html>
